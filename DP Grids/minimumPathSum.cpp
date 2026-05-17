@@ -7,8 +7,7 @@
 using namespace std;
 
 
-// DP ->
-
+// b) Recursion + Memoization
 int solve(int i,int j,int m,int n,vector<vector<int>>& grid, vector<vector<int>>&dp){
     if(i == m-1 && j == n-1) return grid[i][j];
     if(i > m-1 || j > n-1) return INT_MAX;
@@ -22,11 +21,39 @@ int solve(int i,int j,int m,int n,vector<vector<int>>& grid, vector<vector<int>>
     return dp[i][j];
 }
 
+// int minPathSum(vector<vector<int>>& grid) {
+//     int m = grid.size();
+//     int n = grid[0].size();
+//     vector<vector<int>>dp(m,vector<int>(n,-1));
+//     return solve(0,0,m,n,grid,dp);
+// }
+
+// c) Bottom-up
 int minPathSum(vector<vector<int>>& grid) {
     int m = grid.size();
     int n = grid[0].size();
-    vector<vector<int>>dp(m,vector<int>(n,-1));
-    return solve(0,0,m,n,grid,dp);
+
+    vector<vector<int>>dp(m,vector<int>(n,0));
+    dp[0][0] = grid[0][0];
+    for(int col = 1; col < n ;col++)
+    {
+        dp[0][col] = grid[0][col] + dp[0][col-1];
+    }
+
+    // fill first col
+    for(int row = 1; row < m ;row++)
+    {
+        dp[row][0] = grid[row][0] + dp[row-1][0];
+    }
+
+    for(int i = 1;i < m;i++)
+    {
+        for(int j = 1;j < n;j++)
+        {
+            dp[i][j] = grid[i][j] + min(dp[i-1][j],dp[i][j-1]);
+        }
+    }
+    return dp[m-1][n-1];
 }
 
 int main(){
@@ -37,40 +64,40 @@ int main(){
 }
 
 
-// recursive way-> but shows TLE as there are overlapping subproblems
+// recursive way-> but shows TLE as there are overlapping subproblems + backtracking
 
-bool isPoss(int i,int j,int m,int n,vector<vector<int>>&grid){
-    if(i >= 0 && i < m && j >= 0 && j < n) return true;
-    return false;
-}
-void solve(int i,int j,int m,int n, vector<vector<int>>& grid,int &mini,int &sum){
-    if(i == m-1 && j == n-1){
-        sum += grid[i][j];
-        mini = min(mini,sum);
-        sum -= grid[i][j];
-        return ;
-    }
+// bool isPoss(int i,int j,int m,int n,vector<vector<int>>&grid){
+//     if(i >= 0 && i < m && j >= 0 && j < n) return true;
+//     return false;
+// }
+// void solve(int i,int j,int m,int n, vector<vector<int>>& grid,int &mini,int &sum){
+//     if(i == m-1 && j == n-1){
+//         sum += grid[i][j];
+//         mini = min(mini,sum);
+//         sum -= grid[i][j];
+//         return ;
+//     }
 
-    sum += grid[i][j];
-    int x = i + 1;
-    int y = j;
-    if(isPoss(x,y,m,n,grid)){
-        solve(x,y,m,n,grid,mini,sum);
-    }
-    x = i;
-    y = j+1;
-    if(isPoss(x,y,m,n,grid)){
-        solve(x,y,m,n,grid,mini,sum);
-    }
+//     sum += grid[i][j];
+//     int x = i + 1;
+//     int y = j;
+//     if(isPoss(x,y,m,n,grid)){
+//         solve(x,y,m,n,grid,mini,sum);
+//     }
+//     x = i;
+//     y = j+1;
+//     if(isPoss(x,y,m,n,grid)){
+//         solve(x,y,m,n,grid,mini,sum);
+//     }
   
-    sum -= grid[i][j];  
-    return ;  
-}
-int minPathSum(vector<vector<int>>& grid) {
-    int m = grid.size();
-    int n = grid[0].size();
-    int mini = INT_MAX;
-    int sum = 0;
-    solve(0,0,m,n,grid,mini,sum);
-    return mini == INT_MAX ? 0 : mini;
-}
+//     sum -= grid[i][j];  
+//     return ;  
+// }
+// int minPathSum(vector<vector<int>>& grid) {
+//     int m = grid.size();
+//     int n = grid[0].size();
+//     int mini = INT_MAX;
+//     int sum = 0;
+//     solve(0,0,m,n,grid,mini,sum);
+//     return mini == INT_MAX ? 0 : mini;
+// }

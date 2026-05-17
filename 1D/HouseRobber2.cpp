@@ -44,6 +44,7 @@ int solve(int i,int n,vector<int>&arr,vector<int>&dp){
 // c) Bottom-up
 
 
+
 int rob(vector<int>& nums) {
     int n = nums.size();
     if(n == 1)return nums[0];

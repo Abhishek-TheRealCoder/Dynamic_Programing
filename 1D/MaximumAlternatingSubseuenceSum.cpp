@@ -5,10 +5,64 @@
 // A subsequence of an array is a new array generated from the original array by deleting some elements (possibly none) without 
 // changing the remaining elements' relative order. For example, [2,7,4] is a subsequence of [4,2,3,7,2,1,4] (the underlined elements), while [2,4,2] is not.
 
+// Example 1:
+// Input: nums = [4,2,5,3]
+// Output: 7
+// Explanation: It is optimal to choose the subsequence [4,2,5] with alternating sum (4 + 5) - 2 = 7.
+// Example 2:
+
+// Input: nums = [5,6,7,8]
+// Output: 8
+// Explanation: It is optimal to choose the subsequence [8] with alternating sum 8.
+// Example 3:
+
+// Input: nums = [6,2,1,2,4,5]
+// Output: 10
+// Explanation: It is optimal to choose the subsequence [6,1,5] with alternating sum (6 + 5) - 1 = 10.
+ 
 #include<bits/stdc++.h>
 using namespace std;
 
+// // 1st approach Recursion
+// int solve(int i,vector<int>&arr,int n,bool isEven){
+//     if(i >= n) return 0;
+
+    // int include = 0;
+    // if(isEven){
+    //     include = arr[i] + solve(i+1,arr,n,false);
+    // }else{
+    //     include = -arr[i] + solve(i+1,arr,n,true);
+    // }
+    // int exclude = solve(i+1,arr,n,isEven);
+    // return max(include,exclude);
+// }
+// Tc -> O(2^N)
+
+// 2nd Approach Recursion + memoization
+int solve(int i,vector<int>&arr,int n,bool isEven,vector<vector<int>>&dp){
+    if(i >= n) return 0;
+    if(dp[i][isEven] != -1) return dp[i][isEven];
+
+    int include = 0;
+    if(isEven){
+        include = arr[i] + solve(i+1,arr,n,false,dp);
+    }else{
+        include = -arr[i] + solve(i+1,arr,n,true,dp);
+    }
+    int exclude = solve(i+1,arr,n,isEven,dp);
+    return dp[i][isEven] = max(include,exclude);
+
+}
+int maxAlternatingSum(vector<int>&arr){
+    int n = arr.size();
+    vector<vector<int>>dp(n,vector<int>(2,-1));
+    return solve(0,arr,n,true,dp);
+}
+
 int main(){
     vector<int>arr = {4,2,5,3};
-    
+    int ans = maxAlternatingSum(arr);
+    cout<<ans;
+    return 0;
 }
+

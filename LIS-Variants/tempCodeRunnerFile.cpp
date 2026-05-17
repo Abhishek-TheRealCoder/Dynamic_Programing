@@ -38,7 +38,7 @@ bool isSubseq(string s1,string s2){
         }
         i++;
     }
-    return j == m;
+    return j == n;
     
 }
 
@@ -70,8 +70,6 @@ int longestStrChain(vector<string>& words) {
     return maxi;
     
 }
-// TC-> O(N^2.M)
-// TC-> O(N)
 int main(){
     vector<string>words = {"xbc","pcxbcf","xb","cxbc","pcxbc"};
     int ans = longestStrChain(words);

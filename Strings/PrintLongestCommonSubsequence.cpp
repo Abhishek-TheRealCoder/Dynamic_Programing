@@ -29,7 +29,7 @@ string solve(int m,int n,string s1, string s2){
             if(dp[i][j-1] > dp[i-1][j]){
                 j--;
             }else{
-                i--;
+                i--; 
             }
         }
     }
@@ -40,9 +40,6 @@ string solve(int m,int n,string s1, string s2){
 string longestCommonSubsequence(string& s1,string& s2){
     int m = s1.size();
     int n = s2.size();
-    // return solve(0,0,m,n,s1,s2);
-    // vector<vector<int>>dp(1001,vector<int>(1001,-1));
-    // return solve(0,0,m,n,s1,s2,dp);
     return solve(m,n,s1,s2);
 }
 
@@ -51,4 +48,5 @@ int main(){
     string s2 = "ace";
     string ans = longestCommonSubsequence(s1,s2);
     cout<<ans;
+    return 0;
 }

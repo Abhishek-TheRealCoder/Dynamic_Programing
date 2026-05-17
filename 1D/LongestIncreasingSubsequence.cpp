@@ -60,7 +60,7 @@ int solve(int n,vector<int>&arr){
             }
         }
     }
-    return dp[n+1];
+    return dp[n-1];
 }
 // TC-> O(n^2)
 

@@ -2,7 +2,7 @@
 using namespace std;
 
 int solve(int i,int j,int n,vector<vector<int>>&mat,vector<vector<int>>&dp){
-    if(i < 0 | i > n - 1 || j < 0 || j > n-1) return 1e9;
+    if(i < 0 || i > n - 1 || j < 0 || j > n-1) return 1e9;
 
     if(i == n-1) return mat[i][j];
     if(dp[i][j] != -1) return dp[i][j];
@@ -28,4 +28,5 @@ int main(){
     vector<vector<int>>matrix = {{2,1,3},{6,5,4},{7,8,9}};
     int ans = minFallingPathSum(matrix);
     cout<<ans;
+    return 0;
 }
