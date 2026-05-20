@@ -115,7 +115,6 @@ int maxGold(vector<vector<int>>& mat)
     // int maxi = 0; 
     for(int i = 0; i < n;i++)
     {
-        
         maxi = max(maxi,dp[i][m-1]);
     }
     return maxi;

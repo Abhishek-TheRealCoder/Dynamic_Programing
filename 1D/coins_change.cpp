@@ -76,7 +76,7 @@ int solve(int idx,int n,vector<int>& coins, int amount)
 // b) Bottom-up dp[i][amount] = minimum number of coins required to make up the amount using coins from index i to n-1
 int coinChange(vector<int>& coins, int amount) {
     int n = coins.size();
-    vector<vector<int>>dp(n+1,vector<int>(amount+1,0));
+    vector<vector<int>>dp(n+1,vector<int>(amount+1,1e9));
 
     // amount zero needs zero coins
     for(int i = 0;i <= n;i++)
