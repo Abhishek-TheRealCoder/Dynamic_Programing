@@ -72,8 +72,7 @@ int jobScheduling(vector<int>& startTime, vector<int>& endTime, vector<int>& pro
         time.emplace_back(make_pair(make_pair(startTime[i],endTime[i]),profit[i]));
     }
 
-    // we will sort based on firstElement becoz in Binary Search we are searching element based on
-    sort(time.begin(),time.end());
+    sort(time.begin(),time.end());// we will sort based on firstElement becoz in Binary Search we are searching element based on first element
     memset(dp,-1,sizeof(dp));
     return solve(0,n,time);
 }
