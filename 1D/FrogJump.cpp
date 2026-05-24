@@ -47,8 +47,28 @@
 #include<bits/stdc++.h>
 using namespace std;
 
+// a) Recursion + Memo
+int solve(int curr,int n,vector<int>&arr,vector<int>&dp)
+{
+    if(curr == n - 1) return 0;
+    if(dp[curr] != -1) return dp[curr];
+    int first = abs(arr[curr] - arr[curr + 1]) + solve(curr + 1 , n , arr,dp);
+    int second = INT_MAX;
+    if(curr + 2 < n) second = abs(arr[curr + 2] - arr[curr]) + solve(curr + 2, n, arr,dp);
+    
+    return dp[curr] = min(first,second);   
+    
+}
+int frogJump(int n, vector<int> &heights)
+{   
+    vector<int>dp(n+1,-1);
+    return solve(0,n,heights,dp);
+}
 
 int main()
 {
-
+    vector<int>arr = {7, 4, 4, 2, 6, 6, 3, 4};
+    int n = arr.size();
+    cout<<frogJump(n,arr);
+    return 0;
 }
