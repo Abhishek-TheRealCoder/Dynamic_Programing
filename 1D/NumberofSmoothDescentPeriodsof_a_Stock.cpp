@@ -37,7 +37,47 @@
 #include <bits/stdc++.h>
 using namespace std;
 
+
+// a) Recursion
+long long solve(int idx,int curr,int n,vector<int>&arr)
+{
+    if(idx >= n)
+    {
+        return 0;
+    }
+
+    long long ans = 0;
+    if(idx == curr || arr[idx] + 1 == arr[idx-1])
+    {
+        ans = 1 + solve(idx + 1, curr ,n ,arr);
+    }
+
+    return ans;
+
+}
+
+// b) Recursion + Memoization
+long long dp[100001];
+long long solve(int idx,int curr,int n,vector<int>&arr)
+{
+    if(idx >= n)
+    {
+        return 0;
+    }
+
+    if(idx != curr && dp[idx] != -1) return dp[idx];
+
+    long long ans = 0;
+    if(idx == curr || arr[idx] + 1 == arr[idx-1])
+    {
+        ans = 1 + solve(idx + 1, curr ,n ,arr);
+    }
+
+    return dp[idx] = ans;
+}
+
 long long getDescentPeriods(vector<int>& prices) {
+
     int n = prices.size();
     if(n == 1) return 1;
     vector<int>dp(n,1);
@@ -48,7 +88,6 @@ long long getDescentPeriods(vector<int>& prices) {
             dp[i] = 1 + dp[i-1];
         }
     }
-
 
     long long sum = 0;
     for(auto x : dp)
