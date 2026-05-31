@@ -84,7 +84,7 @@ long long maxTaxiEarnings(int n, vector<vector<int>>& rides) {
     return solve(0,m,rides);
 }
 
-
+// TC -> O(m log m) due to sorting and binary search and space complexity: O(m) due to dp array and recursion stack
 
 int main()
 {
